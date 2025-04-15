@@ -93,7 +93,7 @@ class RAGWorkflow:
             )
         ]
 
-        response = llm_groq.generate_response(msg)
+        response = llm_groq.invoke(msg)
         return {"messages": [response]}
 
 
