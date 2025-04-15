@@ -10,6 +10,9 @@ class LLMInterface:
             streaming=True,
             max_retries=3,
         )
+    def with_structured_output(self, schema):
+        return self.llm.with_structured_output(schema)
+    
     def bind_tools(self, tools):
         return self.llm.bind_tools(tools)
     

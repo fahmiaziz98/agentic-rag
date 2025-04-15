@@ -42,5 +42,5 @@ class RetrieverManager:
         return create_retriever_tool(
             compression_retriever,
             "retrieve_docs",
-            "Search through the user's provided documents and return relevant information about user query.",
+            "use tools for search through the user's provided documents and return relevant information about user query.",
         )
