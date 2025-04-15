@@ -3,7 +3,7 @@ langgraph
 langchain-huggingface
 langchain-groq
 langchain-community
-langchain-qdrant
+scikit-learn
 pypdf==5.1.0
 tiktoken  
 rank_bm25
