@@ -42,7 +42,7 @@ with st.sidebar:
             doc_processor = DocumentProcessor()
             chunks = doc_processor.load_and_split_pdf(file_path)
 
-            vector_store_manager = VectorStoreManager(collection_name=uploaded_file.name, persist_directory=PERSIST_DIRECTORY)
+            vector_store_manager = VectorStoreManager(collection_name=uploaded_file.name)
             vector_store = vector_store_manager.index_documents(documents=chunks)
              
             st.session_state.vector_store = vector_store
@@ -53,9 +53,6 @@ with st.sidebar:
             st.session_state.retriever = retriever_tool
             st.success("Retriever tool created successfully!")
             
-# Chat interface
-# Main chat interface
-st.divider()
 
 # Display chat messages
 for message in st.session_state.messages:
