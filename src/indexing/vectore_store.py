@@ -14,9 +14,10 @@ class VectorStoreManager:
             self.client = QdrantClient(":memory:")
         
         # check collection exists, create if it doesn't
-        try:
-            self.client.collection_exists(collection_name=self.collection_name)
-        except Exception as e:
+        if self.client.collection_exists(collection_name=self.collection_name):
+            print(f"Collection {self.collection_name} already exists")
+        else:
+            print(f"Collection {self.collection_name} does not exist, creating it")
             self.client.create_collection(
                 collection_name=self.collection_name,
                 vectors_config={"dense": VectorParams(size=384, distance=Distance.COSINE)},
