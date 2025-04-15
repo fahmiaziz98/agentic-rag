@@ -4,8 +4,8 @@ from langchain_groq import ChatGroq
 class LLMInterface:
     def __init__(self):
         self.llm = ChatGroq(
-            model="llama-3.1-8b-instant",
-            temperature=0.5,
+            model="llama3-8b-8192",
+            temperature=0.1,
             api_key=os.getenv("GROQ_API_KEY"),
             max_retries=3,
             streaming=True,
