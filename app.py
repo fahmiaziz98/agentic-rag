@@ -31,29 +31,27 @@ with st.sidebar:
     st.header("PDF Upload")
     uploaded_file = st.file_uploader("Upload your PDF", type=["pdf"])
     st.info("Supported file type: PDF")
+    process_button = st.button("Process PDF")
 
-    if uploaded_file:
-        
-        with st.button("Process PDF"):
-            with st.spinner("Processing PDF..."):
-                
-                file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.name)
-                with open(file_path, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
+    if uploaded_file and process_button:    
+        with st.spinner("Processing PDF..."):  
+            file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.name)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
 
-                doc_processor = DocumentProcessor()
-                chunks = doc_processor.load_and_split_pdf(file_path)
+            doc_processor = DocumentProcessor()
+            chunks = doc_processor.load_and_split_pdf(file_path)
 
-                vector_store_manager = VectorStoreManager(collection_name=uploaded_file.name)
-                vector_store = vector_store_manager.index_documents(documents=chunks)
-                
-                st.session_state.vector_store = vector_store
-                st.success("PDF processed and indexed successfully!")
-                
-                retriever_manager = RetrieverManager(vector_store)
-                retriever_tool = retriever_manager.create_retriever()
-                st.session_state.retriever = retriever_tool
-                st.success("Retriever tool created successfully!")
+            vector_store_manager = VectorStoreManager(collection_name=uploaded_file.name)
+            vector_store = vector_store_manager.index_documents(documents=chunks)
+                    
+            st.session_state.vector_store = vector_store
+            st.success("PDF processed and indexed successfully!")
+                    
+            retriever_manager = RetrieverManager(vector_store)
+            retriever_tool = retriever_manager.create_retriever()
+            st.session_state.retriever = retriever_tool
+            st.success("Retriever tool created successfully!")
             
 
 # Display chat messages
