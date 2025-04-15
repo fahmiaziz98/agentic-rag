@@ -20,7 +20,7 @@ class RAGWorkflow:
         self.workflow.add_node("agent", AgentNode(tools=[self.tools]))
         self.workflow.add_node("retrieve", self.retrieve)
         self.workflow.add_node("generate", GeneratorNode())
-        self.workflow.add_node("grade", GradeDocuments())
+        
         self.workflow.add_node("rewrite", RewriteNode())
 
     def _setup_edges(self):
@@ -36,7 +36,7 @@ class RAGWorkflow:
         
         self.workflow.add_conditional_edges(
             "retrieve",
-            self.workflow.get_node("grade"),
+            GradeDocuments(),
         )
         self.workflow.add_edge("generate", END)
         self.workflow.add_edge("rewrite", "agent")
