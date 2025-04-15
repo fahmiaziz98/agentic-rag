@@ -27,7 +27,7 @@ class VectorStoreManager:
             embedding=self.embeddings,
             retrieval_mode=RetrievalMode.HYBRID,
             sparse_embedding=self.sparse_embeddings,
-            vectore_name="dense",
+            vector_name="dense",
             sparse_vector_name="sparse",
         )
     
