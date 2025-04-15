@@ -13,11 +13,15 @@ class VectorStoreManager:
         else:
             self.client = QdrantClient(":memory:")
         
-        self.client.create_collection(
-            collection_name=self.collection_name,
-            vectors_config={"dense": VectorParams(size=3072, distance=Distance.COSINE)},
-            sparse_vectors_config={"sparse": SparseVectorParams(index=models.SparseIndexParams(on_disk=False))},
-        )
+        # check collection exists, create if it doesn't
+        try:
+            self.client.collection_exists(collection_name=self.collection_name)
+        except Exception as e:
+            self.client.create_collection(
+                collection_name=self.collection_name,
+                vectors_config={"dense": VectorParams(size=3072, distance=Distance.COSINE)},
+                sparse_vectors_config={"sparse": SparseVectorParams(index=models.SparseIndexParams(on_disk=False))},
+            )
         
 
     def create_vector_store(self):
