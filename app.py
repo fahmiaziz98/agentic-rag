@@ -43,11 +43,8 @@ with st.sidebar:
             chunks = doc_processor.load_and_split_pdf(file_path)
 
             vector_store_manager = VectorStoreManager(collection_name=uploaded_file.name, persist_directory=PERSIST_DIRECTORY)
-            vector_store = vector_store_manager.index_documents(
-                documents=chunks,
-                collection_name=uploaded_file.name,
-                
-            )
+            vector_store = vector_store_manager.index_documents(documents=chunks)
+            
             st.session_state.vector_store = vector_store
             st.success("PDF processed and indexed successfully!")
             

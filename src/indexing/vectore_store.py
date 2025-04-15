@@ -36,4 +36,4 @@ class VectorStoreManager:
         """Index documents into vector store"""
         vector_store = self.create_vector_store()
         vector_store.add_documents(documents=documents)
-        return vector_store
+        return vector_store 
