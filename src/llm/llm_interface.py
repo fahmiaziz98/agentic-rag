@@ -10,6 +10,8 @@ class LLMInterface:
             streaming=True,
             max_retries=3,
         )
-
+    def bind_tools(self, tools):
+        return self.llm.bind_tools(tools)
+    
     def generate_response(self, prompt: str):
         return self.llm.invoke(prompt)
