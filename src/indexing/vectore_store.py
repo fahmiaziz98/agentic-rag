@@ -19,7 +19,7 @@ class VectorStoreManager:
         except Exception as e:
             self.client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config={"dense": VectorParams(size=3072, distance=Distance.COSINE)},
+                vectors_config={"dense": VectorParams(size=384, distance=Distance.COSINE)},
                 sparse_vectors_config={"sparse": SparseVectorParams(index=models.SparseIndexParams(on_disk=False))},
             )
         
