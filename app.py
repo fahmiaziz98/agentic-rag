@@ -4,8 +4,10 @@ from src.indexing.document_processing import DocumentProcessor
 from src.indexing.vectore_store import VectorStoreManager
 from src.tools_retrieval.retriever import RetrieverManager
 from src.workflow import RAGWorkflow
+
+
 UPLOAD_FOLDER = "uploads/"
-PERSIST_DIRECTORY = "chroma_db/"
+PERSIST_DIRECTORY = "qdrant_db/"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PERSIST_DIRECTORY, exist_ok=True)
 
@@ -40,17 +42,17 @@ with st.sidebar:
             doc_processor = DocumentProcessor()
             chunks = doc_processor.load_and_split_pdf(file_path)
 
-            vector_store_manager = VectorStoreManager()
+            vector_store_manager = VectorStoreManager(persist_directory=PERSIST_DIRECTORY)
             vector_store = vector_store_manager.index_documents(
                 documents=chunks,
                 collection_name=uploaded_file.name,
-                persist_directory=PERSIST_DIRECTORY,
+                
             )
             st.session_state.vector_store = vector_store
             st.success("PDF processed and indexed successfully!")
             
             retriever_manager = RetrieverManager(vector_store)
-            retriever_tool = retriever_manager.create_retriever(texts=chunks)
+            retriever_tool = retriever_manager.create_retriever()
             st.session_state.retriever = retriever_tool
             st.success("Retriever tool created successfully!")
             

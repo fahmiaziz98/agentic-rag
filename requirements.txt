@@ -1,12 +1,12 @@
 langchain
 langgraph
-langchain-huggingface==0.1.2
+langchain-huggingface
 langchain-google-genai 
 google-ai-generativelanguage==0.6.15
-langchain-community==0.3.15
-langchain-chroma==0.2.0
-sqlite3>=3.35.0
+langchain-community
+langchain-qdrant
 pypdf==5.1.0
 tiktoken  
-rank_bm25==0.2.2
+rank_bm25
+fastembed
 flashrank
