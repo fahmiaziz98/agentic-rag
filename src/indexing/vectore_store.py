@@ -14,7 +14,9 @@ class VectorStoreManager:
         
         self.client.create_collection(
             collection_name=collection_name,
-            vectors_config={"dense": SparseVectorParams(size=3072, distance=Distance.COSINE)},
+            vectors_config={
+                "dense": SparseVectorParams(size=3072, distance=Distance.COSINE)
+            },
             sparse_vectors_config={
                 "sparse": SparseVectorParams(index=models.SparseIndexParams(on_disk=False))
             },
