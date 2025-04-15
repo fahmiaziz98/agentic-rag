@@ -5,6 +5,7 @@ langchain-google-genai
 google-ai-generativelanguage==0.6.15
 langchain-community 
 langchain-chroma
+chroma
 pypdf 
 tiktoken 
 rank_bm25 
