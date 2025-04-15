@@ -72,7 +72,7 @@ if prompt := st.chat_input("Ask a question about your document"):
         else:
             with st.spinner("Thinking..."):
                 # Retrieve relevant documents
-                rag_workflow = RAGWorkflow(retriever_tool)
+                rag_workflow = RAGWorkflow(st.session_state.retriever)
                 workflow = rag_workflow.compile()
                 st.session_state.workflow = workflow
                 inputs = {
