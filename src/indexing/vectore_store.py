@@ -24,7 +24,6 @@ class VectorStoreManager:
                 sparse_vectors_config={"sparse": SparseVectorParams(index=models.SparseIndexParams(on_disk=False))},
             )
         
-
     def create_vector_store(self):
         """Create a new vector store"""
         return QdrantVectorStore(
