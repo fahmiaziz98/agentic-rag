@@ -20,6 +20,8 @@ if "vector_store" not in st.session_state:
 if "workflow" not in st.session_state:
     st.session_state.workflow = None
 
+retriever_tool = None
+
 st.set_page_config(
     page_title="RAG Chatbot",
     layout="wide",
@@ -72,7 +74,7 @@ if prompt := st.chat_input("Ask a question about your document"):
         else:
             with st.spinner("Thinking..."):
                 # Retrieve relevant documents
-                rag_workflow = RAGWorkflow(st.session_state.retriever)
+                rag_workflow = RAGWorkflow(retriever_tool)
                 workflow = rag_workflow.compile()
                 st.session_state.workflow = workflow
                 inputs = {
