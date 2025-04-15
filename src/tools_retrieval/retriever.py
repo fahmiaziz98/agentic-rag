@@ -3,6 +3,8 @@ from langchain.retrievers import EnsembleRetriever
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import FlashrankRerank
 
+from langchain.tools.retriever import create_retriever_tool
+
 
 class RetrieverManager:
     def __init__(self, vector_store):
@@ -32,4 +34,13 @@ class RetrieverManager:
         return ContextualCompressionRetriever(
             base_compressor=compressor,
             base_retriever=base_retriever
+        )
+
+    def create_retriever(self, texts):
+        ensemble_retriever = self.create_ensemble_retriever(texts=texts)
+        compression_retriever = self.create_compression_retriever(base_retriever=ensemble_retriever)
+        return create_retriever_tool(
+            compression_retriever,
+            "retrieve_docs",
+            "Search through the user's provided documents and return relevant information about user query.",
         )
