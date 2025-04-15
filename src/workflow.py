@@ -8,9 +8,9 @@ from langchain_core.prompts import PromptTemplate
 from langgraph.graph import END, StateGraph, START
 from langgraph.prebuilt import ToolNode, tools_condition
 from .state import AgentState
-from src.llm.llm_interface import LLMInterface
+from src.llm.llm_interface import llm_groq
 
-llm = LLMInterface()
+
 class GradeDocs(BaseModel):
     binary_score: str = Field(description="Relevance score 'yes' or 'no'")
 
@@ -57,7 +57,7 @@ class RAGWorkflow:
         print("---CALL AGENT---")
         messages = state["messages"]
             
-        model = llm.bind_tools(self.tools)
+        model = llm_groq.bind_tools(self.tools)
         response = model.invoke(messages[0].content)
         return {"messages": [response]}
 
@@ -69,7 +69,7 @@ class RAGWorkflow:
         docs = messages[-1].content
 
         prompt = hub.pull("rlm/rag-prompt")
-        rag_chain = prompt | llm | StrOutputParser()
+        rag_chain = prompt | llm_groq | StrOutputParser()
             
         response = rag_chain.invoke({"context": docs, "question": question})
         return {"messages": [response]}
@@ -93,7 +93,7 @@ class RAGWorkflow:
             )
         ]
 
-        response = llm.generate_response(msg)
+        response = llm_groq.generate_response(msg)
         return {"messages": [response]}
 
 
@@ -101,7 +101,7 @@ class RAGWorkflow:
     def _grade_docs(self, state):
         print("---CHECK RELEVANCE---")
             
-        llm_with_tool = llm.with_structured_output(GradeDocs)
+        llm_with_tool = llm_groq.with_structured_output(GradeDocs)
             
         prompt = PromptTemplate(
         template="""You are a grader assessing relevance of a retrieved document to a user question. \n 
