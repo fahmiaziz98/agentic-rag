@@ -1,8 +1,7 @@
 langchain
 langgraph
 langchain-huggingface
-langchain-google-genai 
-google-ai-generativelanguage==0.6.15
+langchain-groq
 langchain-community
 langchain-qdrant
 pypdf==5.1.0

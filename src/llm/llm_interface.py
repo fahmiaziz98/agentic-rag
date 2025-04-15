@@ -1,14 +1,14 @@
 import os
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 
 class LLMInterface:
     def __init__(self):
-        self.llm = ChatGoogleGenerativeAI(
-            api_key=os.getenv("GEMINI_API_KEY"),
-            model="gemini-2.0-flash",
+        self.llm = ChatGroq(
+            model="llama-3.1-8b-instant",
             temperature=0.5,
-            streaming=True,
+            api_key=os.getenv("GROQ_API_KEY"),
             max_retries=3,
+            streaming=True,
         )
     def with_structured_output(self, schema):
         return self.llm.with_structured_output(schema)
