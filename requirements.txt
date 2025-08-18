@@ -9,3 +9,4 @@ tiktoken
 rank_bm25
 fastembed
 flashrank
+sentence-transformers
